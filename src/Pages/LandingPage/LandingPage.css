@@ -1,0 +1,23 @@
+.dialog_container {
+  width: 500px;
+  height: 350px;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.close_container {
+  position: relative;
+  /* padding: 8rem; */
+  width: 100%;
+}
+.close_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+}
+.add_button_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
