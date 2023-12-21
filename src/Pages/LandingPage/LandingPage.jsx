@@ -50,8 +50,24 @@ const LandingPage = () => {
     { label: "City", key: "city" },
   ];
 
+  const dialogBoxOpen = () => {
+    setDialogBox(true);
+    setUpdate(false);
+  };
+  const dialogBoxClose = () => {
+    setDialogBox(false);
+    setPatientData({
+      firstName: "",
+      lastName: "",
+      city: "",
+      phone: "",
+    });
+  };
+
+  
+
   const handleOnChange = (event) => {
-    setPatientData({ ...patientData, [event.target.name]: event.target.value });
+    setPatientData({...patientData,[event.target.name]: event.target.value});
   };
 
   const AddPatient = () => {
@@ -67,16 +83,15 @@ const LandingPage = () => {
           setDialogBox(false);
           toast.success("Patient added successfully");
         }
-        toast.error("Patient not added successfully");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error("Patient not added successfully"));
   };
 
   // delete api here
   const handleDelete = (id) => {
     deletePatientApi(id)
       .then((res) => {
-        toast.success("Patient Deleted Successfully")
+        toast.success("Patient Deleted Successfully");
       })
       .catch((err) => toast.error("Patient Deleted Error"));
   };
@@ -95,6 +110,12 @@ const LandingPage = () => {
         if (res.status === 200) {
           setDialogBox(false);
           toast.success("Patient updated successfully");
+          setPatientData({
+            firstName: "",
+            lastName: "",
+            city: "",
+            phone: "",
+          });
         }
       })
       .catch((err) => toast.error("Error updating patient"));
@@ -146,7 +167,7 @@ const LandingPage = () => {
           <div className="close_container">
             <CancelIcon
               className="close_icon"
-              onClick={() => setDialogBox(false)}
+              onClick={dialogBoxClose}
             />
             <h2>Add Patient here </h2>
 
@@ -221,7 +242,7 @@ const LandingPage = () => {
       </Dialog>
       <DataTable
         columns={columns}
-        data={filteredPatients}
+        data={filteredPatients.reverse()}
         title={
           <Typography variant="h3" className="custom-title">
             Patient List
@@ -245,7 +266,7 @@ const LandingPage = () => {
               size="small"
               color="success"
               variant="contained"
-              onClick={() => setDialogBox(true)}
+              onClick={dialogBoxOpen}
             >
               Add
             </Button>
