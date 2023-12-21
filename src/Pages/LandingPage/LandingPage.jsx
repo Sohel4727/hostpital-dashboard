@@ -67,7 +67,7 @@ const LandingPage = () => {
           setDialogBox(false);
           toast.success("Patient added successfully");
         }
-        console.log("res", res);
+        toast.error("Patient not added successfully");
       })
       .catch((err) => console.log(err));
   };
@@ -76,9 +76,9 @@ const LandingPage = () => {
   const handleDelete = (id) => {
     deletePatientApi(id)
       .then((res) => {
-        console.log("res", res);
+        toast.success("Patient Deleted Successfully")
       })
-      .catch((err) => console.log("err", err));
+      .catch((err) => toast.error("Patient Deleted Error"));
   };
 
   // update api here
@@ -97,11 +97,11 @@ const LandingPage = () => {
           toast.success("Patient updated successfully");
         }
       })
-      .catch((err) => console.log("err", err));
+      .catch((err) => toast.error("Error updating patient"));
   };
 
   const columns = [
-    { name: "ID", selector: (row) => row._id, sortable: true },
+    { name: "ID", selector: (row, index) => index + 1, sortable: true },
     { name: "First Name", selector: (row) => row.firstName },
     { name: "Last Name", selector: (row) => row.lastName },
     { name: "Phone", selector: (row) => row.phone },
